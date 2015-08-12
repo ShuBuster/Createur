@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanc" >
+
+    <GridLayout
+        android:id="@+id/color_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="200dp"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:rowCount="3" >
+
+        <Button
+            android:id="@+id/c1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/light_green2" />
+
+        <Button
+            android:id="@+id/c2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/green2" />
+
+        <Button
+            android:id="@+id/c3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/teal2" />
+
+        <Button
+            android:id="@+id/c4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/cyan2" />
+
+        <Button
+            android:id="@+id/c5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/light_blue2" />
+
+        <Button
+            android:id="@+id/c6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/blue2" />
+
+        <Button
+            android:id="@+id/c7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/indigo2" />
+
+        <Button
+            android:id="@+id/c8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/deep_purple2" />
+
+        <Button
+            android:id="@+id/c9"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/purple2" />
+
+        <Button
+            android:id="@+id/c10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/pink2" />
+
+        <Button
+            android:id="@+id/c11"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/red2" />
+
+        <Button
+            android:id="@+id/c12"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/deep_orange2" />
+
+        <Button
+            android:id="@+id/c13"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/orange2" />
+
+        <Button
+            android:id="@+id/c14"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/amber2" />
+
+        <Button
+            android:id="@+id/c15"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/yellow2" />
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/choix"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/color_grid"
+        android:layout_marginTop="10dp"
+        android:text="Choix :"
+        android:textColor="@color/noir"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/choix_couleur"
+        android:layout_width="50dp"
+        android:layout_height="50dp" 
+        android:layout_toRightOf="@id/choix"
+        android:layout_alignTop="@id/choix"
+        android:layout_marginLeft="10dp"
+        android:background="@color/light_green2"/>
+
+    <Button
+        android:id="@+id/color_valider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Valider" />
+
+    <ImageButton
+        android:id="@+id/close"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/close" />
+
+</RelativeLayout>
