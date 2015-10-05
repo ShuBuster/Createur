@@ -69,7 +69,7 @@ public class EmploiActivity extends Activity {
 		final ArrayList<Double> heure_marques = new ArrayList<Double>();
 		// les clics sur les images
 		imageButtons();
-		// layout qui contient les activite
+		// layout qui contient les activites
 		liste_activite = (LinearLayout) findViewById(R.id.liste_activite);
 		// bouton qui sert à ajouter une activite au layout
 		Button ajouter_activite = (Button) findViewById(R.id.ajouter_activite);
@@ -659,7 +659,8 @@ public class EmploiActivity extends Activity {
 			public void onClick(View v) {
 				pick_color.dismiss();
 				couleur = couleur_picked;
-				choix_couleur.setText("Couleur choisie : "+ couleur);
+				choix_couleur.setText("Couleur choisie");
+				choix_couleur.setBackgroundColor(getResources().getColor(colorsInt[couleur]));
 			}
 		});
 	}
