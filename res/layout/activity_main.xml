@@ -30,8 +30,8 @@
     <RelativeLayout
         android:id="@id/slide_top"
         style="@style/topPannel"
-        android:elevation="20dp"
         android:paddingBottom="10dp" >
+        <!-- android:elevation="20dp" -->
 
         <LinearLayout
             android:id="@+id/titre"
@@ -45,8 +45,8 @@
     <RelativeLayout
         android:id="@+id/slide_bottom"
         style="@style/bottomPannel"
-        android:clipChildren="false"
-        android:elevation="1dp" >
+        android:clipChildren="false" >
+        <!-- android:elevation="1dp" -->
 
         <TextView
             android:id="@+id/sous"

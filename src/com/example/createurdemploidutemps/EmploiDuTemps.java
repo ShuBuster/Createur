@@ -3,8 +3,9 @@ package com.example.createurdemploidutemps;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-@SuppressWarnings("serial")
 public class EmploiDuTemps implements Serializable{
+	
+	
 	private ArrayList<Task> emploi;
 	private String nomEnfant;
 	private Double[] marqueTemps;
