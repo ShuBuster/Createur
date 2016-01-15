@@ -8,12 +8,11 @@
         android:id="@+id/color_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="200dp"
-        android:columnCount="5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:columnCount="4"
         android:orientation="horizontal"
-        android:rowCount="3" >
+        android:rowCount="4" >
 
         <Button
             android:id="@+id/c1"
@@ -119,50 +118,24 @@
             android:layout_height="50dp"
             android:layout_margin="10dp"
             android:background="@color/yellow2" />
+        
+        <Button
+            android:id="@+id/c16"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@color/yellow7" />
     </GridLayout>
 
     <Button
         android:id="@+id/color_valider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="Valider" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/valider"
         android:layout_below="@id/color_grid"
-        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" >
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/bouton_ok" />
 
-        <TextView
-            android:id="@+id/choix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Choix :"
-            android:textColor="@color/noir"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/choix_couleur"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/light_green2" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/close"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
-        android:background="@drawable/close" />
-
+    
 </RelativeLayout>

@@ -66,5 +66,11 @@
     </style>
 
     <style name="ButtonBarButton" />
+    
+    <style name="imageTask">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+       
+    </style>
 
 </resources>

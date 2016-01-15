@@ -2,9 +2,123 @@
 <resources>
 
     <string name="app_name">Createur d\'emploi du temps</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_emploi">EmploiActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="edt">Les emplois du temps : </string>
+    <string name="valider_emploi">Valider EDT : </string>
+    <string name="envoi_bluetooth">Envoyer par Bluetooth</string>
+    <string name="nom_edt">Tapez le nom de votre EDT</string>
+    <string name="suppr">Supprimer</string>
+    <string name="suppr_conf_title">SUPPRESSION</string>
+    <string name="suppr_conf_message">Supprimer cet emploi du temps ?</string>
+    <string name="renom">Renommer</string>
+    <string name="nom_unique">Un autre emploi du temps possède le même nom !</string>
+    <string name="sauvegarde">Vos emplois du temps ont été sauvegardés dans le ficher "frise.txt"</string>
+    <string name="charge_emplois_fichier">Les emplois du temps ont été chargés depuis le fichier</string>
+    <string name="charge_emplois_db">Les emplois du temps ont été chargés depuis la base de données</string>
+    <string name="emplois_recus">De nouveaux emplois du temps sont arrivés !</string>
+    <string name="aide_title">Au secours !</string>
+    <string name="texte_aide">	Bienvenue dans l aide du Créateur d emplois du temps !\n\n
+
+			I)	Introduction\n\n
+
+	Tout d abord, l application fonctionne en collaboration avec la frise de journée (FRIZZ) puisqu elle permet de créer
+autant d emplois du temps que l on veut. Cette application fonctionne sur tout support (tablette, Smartphone),
+contrairement à la frise qui n est faite que pour des tablettes. \n\n
+
+            II) Stockage des EDT \n\n
+            
+     Dans cette application, chaque action que vous faites (création d edt, renommer, création ou modification d activite,
+ ...)  est enregistrée dans une base de données inaccessible dans l application : tout est sauvegardé automatiquement !
+Vous pouvez donc quitter l appli a tout moment et faire autre chose, votre travail restera intact. La frise charge tous
+les emplois du temps de cette base de données à chaque fois que vous ouvrez le menu principal de l appli FRIZZ.
+Une dernière chose, la base de données est liée à l appli créateur, donc si vous supprimez cette appli, vous perdrez la
+base de données. Pour palier à ce problème, le céateur stocke également toutes ces données dans un fichier de sauvegarde
+indépendant de l appli, accessible (storage/FilesFrise/frise.txt). La frise chargera automatiquement ce fichier si elle
+ne trouve pas de base de données et si vous réinstaller le créateur d edt, il se remettra à jour avec le fichier donc
+vous ne perdrez rien et la frise marchera sans problèmes ! \n\n
+
+            III) Bluetooth\n\n
+            
+     Le créateur d edt permet l envoi d emplois du temps par Bluetooth à la frise. Cela permet d utiliser le créateur
+depuis son Smatphone ou sa tablete sans utiliser celle des enfants. Il faut pour cela que le Bluetooth soit activé
+sur la tablette des enfants, est que cette dernière soit appariée ave votre appareil personnel (voir prédéfénces).
+Le créateur vous propose lui même d activer ou non le bluetooth sur votre appareil. On n a vu avec le paragraphe du haut
+que la créateur et la frise étaient toujours synchronisés sur la tablette de l enfant. Avec le bLuetooth, le créateur sur
+votre appareil sera aussi synchronisé avec la frise. Donc tous les edt nouveaux sur la tablette de l enfant seront aussi
+sur votre appareil au démarrage et vice versa : ce que vous faites d un côté, vous n avez pas à le refaire de l autre.
+Une personne peut donc travailler sur la tablette et une aure sur son appareil personnel sans perte de données et avec
+la totale liberté de remodifier ce que l autre a fait,... On peut aussi envoyer en live des modifications sur la tablette
+pendant que l enfant l utilise sans devoir lui reprendre. La liaison Bluetooth ne marche qu entre la tablette de l enfant
+et un appareil a la fois qui lui est apparié (même si on peut en apparier plusieurs), donc travail à deux max.
+Cependant, le bluetooth n est absolument pas nécessaire pour utiliser le créateur, plusieurs personnes peuvent travailler
+sur leur propres Smartphone/tablette, et se connecter chacun leur tour à la tablette de l enfant.\n\n
+
+			IV)	Création d EDT vides\n\n
+
+	La fenêtre d accueil vous permet d ajouter de nouveaux emplois du temps (vides pour le moment) avec leurs noms, d en
+supprimer et de les renommer. C est elle qui accueille cette aide d ailleurs ! C est cette fenêtre qui se charge de
+toutes les réceptions Bluetooth/Stockage interne sans que vous ayez à vous en soucier ! En revanche c est vous qui
+décidez d envoyer vos EDT par Bluetooth avec le bouton du bas (« envoyer par Bluetooth). Pour créer ou renommer un EDT,
+c est presque pareil, vous rentrez son nom dans le champ du bas et cliquez soit sur « valider » soit « renommer ». Pour
+visionner le contenu de l EDT, cliquez sur son nom ! \n\n
+
+			V)	Affichage des activités\n\n
+
+	La deuxième fenêtre s ouvre quand vous cliquez sur le nom d un EDT, elle présente toutes les activités de cet EDT ainsi
+que les heures marquées (heures qui apparaissent sur la frise, comme des repères). Une activité se présente comme un
+petit cadre avec son nom, ses horaires, sa description. La cadre est de la couleur de l activité, mais on n a aucune
+info sur l image, désolé… La croix à droite permet de supprimer une activité. Comme pour la fenêtre précédente, le
+bouton « ajouter » est double, si vous remplissez une heure à marquer dans le champ du bas, il ajoute cette heure à la
+liste (liste déroulante en bas), sinon, il vous permet d ajouter une activité à l EDT (voir partie IV). Enfin, un clic
+sur une activité vous permet de la modifier (partie IV). \n\n
+
+			VI)	Ajouter/modifier une activité\n\n
+
+	La troisième et dernière fenêtre (ouf !) vous permet de créer/modifier une activité. Dans le premier cas vous aviez
+cliquez sur « ajouter » et dans le second sur une activité. Vous pouvez donc remplir à votre guise les champs qui
+vous sont proposés, choisir une image et une couleur, puis valider. Si des champs sont vides ou incorrects (format
+des heures : « 13h30 ») on vous le dira, vous ne perdrez rien, rassurez-vous ! Pour les images, c est plus compliqué,
+soit vous prenez celles qui apparaissent dans la liste déroulante (facile) soit vous pouvez chercher dans votre
+appareil des images ou des photos en cliquant sur le dernier item « … ». Là encore, aucun danger ne vous guette,
+mais sachez que si vous prenez une trop belle image, elle ralentira la frise. Votre image ne s affichera pas
+forcément à l écran parce qu elle est trop grande mais ce n est pas grave. Autre chose très importante, on envoi que
+des choses simples par Bluetooth, comme le nom de l image (et pas l image elle-même), donc si cette image ne se
+trouve pas sur la frise, inutile de compter la voir s afficher ^^.\n\n
+	
+	Un dernier mot, si vos emplois du temps sont vides ou incohérents (activités qui se chevauchent), ils seront stockés mais pas envoyés à la frise, vous pourrez donc les modifier. \n\n
+Que la force de création soit avec vous …
+</string>
+    <string name="title_activity_emplois">EmploisActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="bouton_modifier">Modifier</string>
+    <string name="bouton_ok">Valider</string>
+    <string name="ajouter_edt">Ajouter</string>
+    <string name="heures_texte">Heures marquées :</string>
+    <string name="image_choix">Image choisie :</string>
+    <string name="chevauche">Emploi non valide, des activités se chevauchent</string>
+    <string name="title_activity_task">TaskActivity</string>
+    <string name="nom_activite">Le nom de l\'activité</string>
+    <string name="desc_activite">Une description de l\'activité</string>
+    <string name="heure_debut">Heure de début (ex: 13h30)</string>
+    <string name="heure_fin">Heure de fin (ex: 15h)</string>
+    <string name="choix_couleur">Choisir une couleur</string>
+    <string name="nom_vide">Vous devez saisir un nom non vide</string>
+    <string name="desc_vide">Vous devez saisir une description non vide</string>
+    <string name="debut_vide">Vous devez saisir une heure de début non vide</string>
+    <string name="fin_vide">Vous devez saisir une heure de fin non vide</string>
+    <string name="debut_format">Vous devez saisir l\sheure de début au format: "13h45"</string>
+    <string name="fin_format">Vous devez saisir l\'heure de fin au format: "13h45"</string>
+    <string name="hmarque_format">Vous devez saisir l\'heure marque au format: "13h45"</string>
+    <string name="hmarque_unique">L\'heure que vous avez saisie est déjà marquée !</string>
+    <string name="heure_coherent">Vous devez saisir l\'heure de début avant l\'heure de fin</string>
+    <string name="couleur_picked">Choisissez une couleur !</string>
+    <string name="ajout_heures_m">Ecrivez une heure à marquer</string>
+    <string name="emplois_non_valide">Pas d\'emplois du temps valides !</string>
+
+    <!-- Bluetooth -->
+    <string name="send">Envoi des emploi du temps !</string>
+    <string name="not_connected_bluetooth">Vous n\'êtes connecté à aucun appareil</string>
+    <string name="title_connecting">En connection...</string>
+    <string name="title_not_connected">Pas connecté</string>
 
 </resources>

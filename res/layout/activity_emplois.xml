@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanc_casse"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.createurdemploidutemps.EmploiActivity" >
+
+    <!-- Le bandeau du haut -->
+
+    <TextView
+        android:id="@+id/nom"
+        style="@style/wrapped"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/ajouter_edt"
+        style="@style/wrapped"
+        android:layout_below="@id/nom"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/ajouter_edt" />
+
+    <!-- Une scrollView avec autant de layout que de Task de l'EDT -->
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/horiz_scroll"
+        android:layout_below="@id/ajouter_edt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" >
+
+        <LinearLayout
+            android:id="@+id/liste_task"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Le bas, avec les heures a marquer -->
+
+    <HorizontalScrollView
+        android:id="@+id/horiz_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp" >
+
+        <LinearLayout
+            android:id="@+id/heures_marquees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <EditText
+        android:id="@+id/mes_heures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:hint="@string/ajout_heures_m"
+        android:inputType="textCapSentences"
+        android:singleLine="true" />
+
+</RelativeLayout>

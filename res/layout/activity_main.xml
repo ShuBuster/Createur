@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple6"
-    android:clipChildren="false"
     tools:context="${relativePackage}.${activityClass}" >
 
     <Button
@@ -13,15 +12,77 @@
         android:background="@drawable/logo_app"
         android:visibility="invisible" />
 
+    <!-- layout contenant les edt, le bouton de validation et l'edit_text pour en ecrire un nouveau. -->
+
+    <RelativeLayout
+        android:id="@+id/slide_bottom"
+        style="@style/bottomPannel"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/edt_titre"
+            style="@style/wrapped"
+            android:layout_marginTop="150dp"
+            android:text="@string/edt"
+            android:textColor="@color/fushia" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bandeau_bas"
+            android:layout_below="@id/edt_titre"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp" >
+
+            <LinearLayout
+                android:id="@+id/liste_emplois"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@id/bandeau_bas"
+            style="@style/wrapped"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/mon_texte"
+                style="@style/wrapped"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/nom_edt"
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:textColor="@color/yellow6" />
+
+            <Button
+                android:id="@+id/valider_edt"
+                style="@style/wrapped"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/yellow3" />
+        </LinearLayout>
+        
+        <Button 
+            android:id="@+id/aide"
+            style="@style/wrapped"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/help"/>
+    </RelativeLayout>
+
+    <!-- separation entre le slide top et bottom, apparence de relief -->
+
     <ImageView
         android:id="@+id/slide_top_shadow"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/slide_top"
-        android:layout_alignLeft="@+id/slide_top"
-        android:layout_alignRight="@+id/slide_top"
-        android:layout_alignTop="@+id/slide_top"
-        android:layout_marginBottom="-30dp"
+        android:layout_marginBottom="-20dp"
         android:layout_marginLeft="-20dp"
         android:layout_marginRight="-20dp"
         android:background="@drawable/shadow_xlarge"
@@ -31,74 +92,16 @@
         android:id="@id/slide_top"
         style="@style/topPannel"
         android:paddingBottom="10dp" >
-        <!-- android:elevation="20dp" -->
+
+        <!-- accueille toutes les lettres animees -->
 
         <LinearLayout
-            android:id="@+id/titre"
+            android:id="@+id/titre_edt"
             android:layout_width="wrap_content"
-            android:layout_height="110dip"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:orientation="horizontal" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/slide_bottom"
-        style="@style/bottomPannel"
-        android:clipChildren="false" >
-        <!-- android:elevation="1dp" -->
-
-        <TextView
-            android:id="@+id/sous"
-            style="@style/wrapped"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="175dp"
-            android:text="Liste des emplois du temps :"
-            android:textColor="@color/fushia"
-            android:textSize="30sp" />
-
-        <LinearLayout
-            android:id="@+id/liste"
-            style="@style/wrapped"
-            android:layout_below="@id/sous"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            style="@style/wrapped"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/ajouter"
-                style="@style/textShadow"
-                android:layout_above="@+id/supprimer"
-                android:layout_marginRight="10dp"
-                android:paddingBottom="5dp"
-                android:text="Ajouter un emploi du temps"
-                android:textColor="@color/jaune1"
-                android:textSize="25sp" />
-
-            <Button
-                android:id="@+id/valider"
-                style="@style/textShadow"
-                android:layout_marginRight="10dp"
-                android:paddingBottom="5dp"
-                android:text="Sauvegarder et quitter"
-                android:textColor="@color/jaune1"
-                android:textSize="25sp" />
-
-            <Button
-                android:id="@id/supprimer"
-                style="@style/textShadow"
-                android:paddingBottom="5dp"
-                android:text="Tout supprimer"
-                android:textColor="@color/jaune1"
-                android:textSize="20sp" />
-        </LinearLayout>
     </RelativeLayout>
 
 </RelativeLayout>
