@@ -26,7 +26,6 @@ import boutons.Bouton;
 import com.example.basededonnees.EmploiDAO;
 import com.example.basededonnees.HeuresDAO;
 import com.example.basededonnees.TaskDAO;
-import com.example.controler.Createur_Presenter;
 import composants.MyLayoutParams;
 import composants.Utile;
 
@@ -36,8 +35,10 @@ public class EmploiActivity extends Activity {
 
 	private EmploiDuTemps emploi;
 
+	/* liste triee des activites. */
 	private ArrayList<Task> tasks;
 
+	/* liste triee des heures marquees. */
 	private ArrayList<Double> heures;
 
 	private LinearLayout liste;
@@ -61,8 +62,6 @@ public class EmploiActivity extends Activity {
 	private View parent;
 
 	private EditText edit_heures;
-
-	private final Createur_Presenter _presenter = new Createur_Presenter(this);
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -119,9 +118,17 @@ public class EmploiActivity extends Activity {
 				if (edit_heures.getText().toString().equals("")) {
 					final Intent secondActivity = new Intent(a,
 							TaskActivity.class);
-					final Serializable extra = new Task(ID, nomEdt, "", "", -1,
+
+					// une activite vide avec pour heure de debut l'heure de
+					// fin de la derniere activite
+					double heureFin = -1;
+					if (tasks.size() != 0) {
+						heureFin = tasks.get(tasks.size()-1)
+								.getHeureFin();
+					}
+					final Serializable extra = new Task(ID, nomEdt, "", "", heureFin,
 							-1, "", -1);
-						secondActivity.putExtra("extra", extra);
+					secondActivity.putExtra("extra", extra);
 					a.startActivity(secondActivity);
 				}
 				// ajout d'une heure marquee
@@ -197,11 +204,11 @@ public class EmploiActivity extends Activity {
 	}
 
 	/**
-	 * Verifie que les activites sont coherentes et non vide Valide ou non
-	 * l'emploi du temps associe Trie les activites dans la base de donnees et
-	 * sur l'ecran si elle sont coherentes.
+	 * Verifie que les activites sont coherentes et non vide. Valide ou non
+	 * l'emploi du temps associe. Trie les activites sur l'ecran si elle sont
+	 * coherentes.
 	 * 
-	 * @return True si les activites sont coherentes
+	 * @return True si les activites sont coherentes : l'emploi est valide
 	 */
 	public boolean verification() {
 		// pas d'activites
@@ -312,16 +319,14 @@ public class EmploiActivity extends Activity {
 		heures_params.marginLeft(30);
 		heures.setLayoutParams(heures_params);
 
-		/*final TextView img = new TextView(getApplicationContext());
-		contenut.addView(img);
-		img.setId(3);
-		img.setTextSize(unit, textSize);
-		img.setTextColor(color);
-		img.setText("Image : " + task.getImage());
-		final MyLayoutParams img_params = new MyLayoutParams();
-		img_params.addRule(RelativeLayout.BELOW, 2);
-		img_params.marginLeft(30);
-		img.setLayoutParams(img_params);*/
+		/*
+		 * final TextView img = new TextView(getApplicationContext());
+		 * contenut.addView(img); img.setId(3); img.setTextSize(unit, textSize);
+		 * img.setTextColor(color); img.setText("Image : " + task.getImage());
+		 * final MyLayoutParams img_params = new MyLayoutParams();
+		 * img_params.addRule(RelativeLayout.BELOW, 2);
+		 * img_params.marginLeft(30); img.setLayoutParams(img_params);
+		 */
 
 		final TextView desc = new TextView(getApplicationContext());
 		contenut.addView(desc);

@@ -102,8 +102,8 @@ public class TaskDAO extends DAOBase {
 			int couleur = c.getInt(6);
 			String description = c.getString(7);
 
-			tasks.add(new Task(id, nom, nomTask, description, heureFin
-					- heureDebut, heureDebut, image, couleur));
+			tasks.add(new Task(id, nom, nomTask, description, heureDebut,
+					heureFin, image, couleur));
 		}
 		c.close();
 		return tasks;

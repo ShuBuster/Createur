@@ -37,7 +37,8 @@ public class EmploiDAO extends DAOBase {
 
 	/**
 	 * @param edt
-	 *            l'emploi du temps a supprimer
+	 *            l'emploi du temps a supprimer supprime aussi les activites et
+	 *            les heures
 	 */
 	public void supprimer(final EmploiDuTemps edt) {
 		final SQLiteDatabase mdb = open();
@@ -53,9 +54,23 @@ public class EmploiDAO extends DAOBase {
 	}
 
 	/**
+	 * supprime tous les emplois du temps avec leurs activites et heures
+	 */
+	public void supprimerTous() {
+		final SQLiteDatabase mdb = open();
+		mdb.delete(DbSchema.EDT_TABLE_NAME, null, null);
+		// toutes les activites doivent etre enlevees
+		mdb.delete(DbSchema.TASK_TABLE_NAME, null, null);
+		// toutes les heures marquees doivent etre enlevees
+		mdb.delete(DbSchema.HEUREM_TABLE_NAME, null, null);
+
+	}
+
+	/**
 	 * @param ancientNom
 	 * @param emploi
-	 *            l'emploi du temps modifie
+	 *            l'emploi du temps modifie,
+	 * 
 	 */
 	public void modifier(String ancientNom, final EmploiDuTemps emploi) {
 		final SQLiteDatabase mdb = open();
@@ -76,8 +91,8 @@ public class EmploiDAO extends DAOBase {
 
 			final ContentValues heure_value = new ContentValues();
 			heure_value.put(DbSchema.EDT_NOM, emploi.getNomEnfant());
-			mdb.update(DbSchema.HEUREM_TABLE_NAME, heure_value, DbSchema.EDT_NOM
-					+ " LIKE ?", new String[] { ancientNom });
+			mdb.update(DbSchema.HEUREM_TABLE_NAME, heure_value,
+					DbSchema.EDT_NOM + " LIKE ?", new String[] { ancientNom });
 
 		}
 
@@ -86,7 +101,8 @@ public class EmploiDAO extends DAOBase {
 	/**
 	 * @param taskdao
 	 * @param heuredao
-	 * @return Selectionne tous les emplois du temps avec leurs activites et heures
+	 * @return Selectionne tous les emplois du temps avec leurs activites et
+	 *         heures
 	 */
 	public ArrayList<EmploiDuTemps> getEmplois(final TaskDAO taskdao,
 			final HeuresDAO heuredao) {

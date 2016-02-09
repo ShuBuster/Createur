@@ -47,8 +47,6 @@ public class MainActivity extends Activity {
 
 	private LinearLayout liste;
 
-	private int ID = 1;
-
 	// acces a la base de donnes
 
 	private final EmploiDAO emploidao = new EmploiDAO(this);
@@ -76,29 +74,20 @@ public class MainActivity extends Activity {
 	/**
 	 * {@inheritDoc}.
 	 */
-	
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// Ask for bluetooth permission
-		//final Intent enableIntent = new Intent(
-		//		BluetoothAdapter.ACTION_REQUEST_ENABLE);
-		//startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+		// final Intent enableIntent = new Intent(
+		// BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		// startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 
 		// full screen
 		// Utile.fullScreen(this);
 		setContentView(R.layout.activity_main);
 
 		// taille ecran
-		H = Utile.getScreenSize(a)[1];
-		final int wDpi = Utile.getScreenSizePI(a)[0];
-		Log.d(TAG, "height : " + H + " , wDpi : " + wDpi);
-		if (wDpi > 300) {
-			textSize = 80;
-		}
-		if (H < 1000) {
-			textSize = 30;
-		}
+		setTextSize();
 
 		// ///////////////////////////////////////////////////////////////////////
 		// / IHM
@@ -147,20 +136,17 @@ public class MainActivity extends Activity {
 
 		monTexte.addTextChangedListener(new TextWatcher() {
 
-			
 			public void afterTextChanged(final Editable s) {
-				validerEDT.setAlpha(1f);
-				validerEDT.setEnabled(true);
 				validerEDT.setText(getResources().getString(
 						R.string.valider_emploi));
+				validerEDT.setAlpha(1f);
+				validerEDT.setEnabled(true);
 			}
 
-			
 			public void beforeTextChanged(final CharSequence s,
 					final int start, final int count, final int after) {
 			}
 
-			
 			public void onTextChanged(final CharSequence s, final int start,
 					final int before, final int count) {
 
@@ -170,21 +156,23 @@ public class MainActivity extends Activity {
 		// listener pour la creation d'edt
 		validerEDT.setOnClickListener(new OnClickListener() {
 
-			
 			public void onClick(final View v) {
 				// valide le nouvel edt
 				if (!monTexte.getText().toString().equals("")) {
 					if (NomUnique()) {
-						final EmploiDuTemps edt = new EmploiDuTemps(ID, null,
+						final EmploiDuTemps edt = new EmploiDuTemps(-1, null,
 								monTexte.getText().toString(), null);
+
+						// ajout graphique
 						edt.setValid(false);
-						ID++;
 						emplois.add(edt);
 						addLayoutEDT(edt);
 						monTexte.setText("");
 						setValider();
+
 						// ajout a la base de donnees
-						emploidao.ajouter(edt);
+						final long ID = emploidao.ajouter(edt);
+						edt.setId(ID);
 					}
 				}
 				// envoi tous les edt par bluetooth
@@ -194,8 +182,8 @@ public class MainActivity extends Activity {
 					if (enable) {
 						// envoi des edt valides
 						ArrayList<EmploiDuTemps> edtValides = new ArrayList<EmploiDuTemps>();
-						for(EmploiDuTemps emploi : emplois){
-							if(emploi.isValid()){
+						for (EmploiDuTemps emploi : emplois) {
+							if (emploi.isValid()) {
 								edtValides.add(emploi);
 							}
 						}
@@ -213,8 +201,8 @@ public class MainActivity extends Activity {
 		final String aide_texte = getResources().getString(R.string.texte_aide);
 		bouton_aide.setOnClickListener(new OnClickListener() {
 
-			
 			public void onClick(View v) {
+				setValider();
 				AlertDialog aideDialog = new AlertDialog.Builder(a)
 						.setTitle(getResources().getString(R.string.aide_title))
 						.setMessage(aide_texte)
@@ -225,27 +213,63 @@ public class MainActivity extends Activity {
 											int which) {
 										dialog.cancel();
 									}
-								})
-						.setIcon(android.R.drawable.ic_dialog_alert)
+								}).setIcon(android.R.drawable.ic_dialog_alert)
 						.show();
-				
+
 				aideDialog.setIcon(getResources().getDrawable(R.drawable.help));
-				
+
 			}
 		});
+	}
+
+	private void setTextSize() {
+
+		H = Utile.getScreenSize(a)[1];
+		final double diagInch = Utile.getScreeSizeInch(a);
+		Log.d(TAG, "diagonale en pouce : " + diagInch);
+		Log.d(TAG, "Height : " + H);
+		if (diagInch <= 4) {
+			textSize = 20;
+		} else if (diagInch <= 5) {
+			textSize = 30;
+		} else if (diagInch <= 6) {
+			textSize = 40;
+		} else if (diagInch <= 7) {
+			textSize = 50;
+		} else if (diagInch <= 8.5) {
+			textSize = 60;
+		} else if (diagInch <= 10) {
+			textSize = 70;
+		} else {
+			textSize = 80;
+		}
+		// tablettes non HD
+		if (diagInch >= 8 && H < 1400) {
+			textSize = textSize - 20;
+		}
+
+		// Smartphones HD
+		if (diagInch <= 6) {
+			if (H > 1500) {
+				textSize = textSize + 30;
+			} else if (H > 1200) {
+				textSize = textSize + 15;
+			}
+
+		}
+
 	}
 
 	/**
 	 * {@inheritDoc}.
 	 */
-	
+
 	public void onResume() {
 		super.onResume();
 
 		// remise a jour de l'ihm
 		liste = (LinearLayout) findViewById(R.id.liste_emplois);
 		liste.removeAllViews();
-		setValider();
 
 		_presenter.createConnection(mHandler);
 
@@ -255,13 +279,14 @@ public class MainActivity extends Activity {
 		for (final EmploiDuTemps emploi : emplois) {
 			addLayoutEDT(emploi);
 		}
+		setValider();
 
 	}
 
 	/**
 	 * {@inheritDoc}.
 	 */
-	
+
 	protected void onDestroy() {
 		super.onDestroy();
 		_presenter.destroy(emplois);
@@ -272,9 +297,21 @@ public class MainActivity extends Activity {
 	 */
 	private void setValider() {
 		// s'il y a du bluetooth :
-		if (BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-			validerEDT.setText(getResources().getString(
-					R.string.envoi_bluetooth));
+		if (BluetoothAdapter.getDefaultAdapter() != null
+				&& BluetoothAdapter.getDefaultAdapter().isEnabled()) {
+			boolean oneValid = false;
+			for (EmploiDuTemps emp : emplois) {
+				if (emp.isValid()) {
+					oneValid = true;
+				}
+			}
+			if (oneValid) {
+				validerEDT.setText(getResources().getString(
+						R.string.envoi_bluetooth));
+			} else {
+				validerEDT.setText(getResources().getString(
+						R.string.recevoir_bluetooth));
+			}
 			validerEDT.setAlpha(1f);
 			validerEDT.setEnabled(true);
 		} else {
@@ -310,6 +347,8 @@ public class MainActivity extends Activity {
 			layout.addView(suppr);
 			suppr.setId(123);
 			suppr.setText(R.string.suppr);
+			suppr.setTextColor(getResources().getColor(R.color.indigo7));
+
 			final RelativeLayout.LayoutParams suppr_params = new RelativeLayout.LayoutParams(
 					android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
 					android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -322,7 +361,6 @@ public class MainActivity extends Activity {
 
 			suppr.setOnClickListener(new OnClickListener() {
 
-				
 				public void onClick(final View v) {
 
 					// //////////////////////////////////////////////////////////////////////////
@@ -354,7 +392,6 @@ public class MainActivity extends Activity {
 											liste.removeView(layout);
 											emplois.remove(emploi);
 											emploidao.supprimer(emploi);
-											ID--;
 											dialog.cancel();
 										}
 									})
@@ -386,7 +423,6 @@ public class MainActivity extends Activity {
 
 			nom.setOnClickListener(new OnClickListener() {
 
-				
 				public void onClick(final View v) {
 					final Intent secondActivity = new Intent(a,
 							EmploiActivity.class);
@@ -404,6 +440,7 @@ public class MainActivity extends Activity {
 			final Button renommer = new Button(getApplicationContext());
 			layout.addView(renommer);
 			renommer.setId(1541);
+			renommer.setTextColor(getResources().getColor(R.color.indigo5));
 			renommer.setText(R.string.renom);
 			final RelativeLayout.LayoutParams renommer_params = new RelativeLayout.LayoutParams(
 					android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -420,7 +457,6 @@ public class MainActivity extends Activity {
 			// listener pour la creation d'edt
 			renommer.setOnClickListener(new OnClickListener() {
 
-				
 				public void onClick(final View v) {
 					if (!monTexte.getText().toString().equals("")) {
 						if (NomUnique()) {
@@ -468,7 +504,6 @@ public class MainActivity extends Activity {
 	 */
 	private final Handler mHandler = new Handler() {
 
-		
 		public void handleMessage(final Message msg) {
 			switch (msg.what) {
 			case Bluetooth_Constants.MESSAGE_STATE_CHANGE:
@@ -495,14 +530,18 @@ public class MainActivity extends Activity {
 				Toast.makeText(getApplicationContext(),
 						getResources().getString(R.string.send),
 						Toast.LENGTH_SHORT).show();
+				Log.d(TAG, "bytes written " + msg.arg1);
 				break;
 			case Bluetooth_Constants.MESSAGE_READ:
 				// MAJ de la base de donnees envoyee par Bluetooth
 				emplois = _presenter.getEdtBluetooth(msg.obj);
+				Log.d(TAG, "bytes read : " + msg.arg1);
+				liste.removeAllViews();
 				for (final EmploiDuTemps emploi : emplois) {
 					addLayoutEDT(emploi);
 				}
-				
+				setValider();
+
 				break;
 			case Bluetooth_Constants.MESSAGE_DEVICE_NAME:
 				// save the connected device's name

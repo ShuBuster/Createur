@@ -6,6 +6,7 @@
     <string name="edt">Les emplois du temps : </string>
     <string name="valider_emploi">Valider EDT : </string>
     <string name="envoi_bluetooth">Envoyer par Bluetooth</string>
+    <string name="recevoir_bluetooth">Recevoir par Bluetooth</string>
     <string name="nom_edt">Tapez le nom de votre EDT</string>
     <string name="suppr">Supprimer</string>
     <string name="suppr_conf_title">SUPPRESSION</string>
@@ -32,26 +33,19 @@ contrairement à la frise qui n est faite que pour des tablettes. \n\n
 Vous pouvez donc quitter l appli a tout moment et faire autre chose, votre travail restera intact. La frise charge tous
 les emplois du temps de cette base de données à chaque fois que vous ouvrez le menu principal de l appli FRIZZ.
 Une dernière chose, la base de données est liée à l appli créateur, donc si vous supprimez cette appli, vous perdrez la
-base de données. Pour palier à ce problème, le céateur stocke également toutes ces données dans un fichier de sauvegarde
-indépendant de l appli, accessible (storage/FilesFrise/frise.txt). La frise chargera automatiquement ce fichier si elle
-ne trouve pas de base de données et si vous réinstaller le créateur d edt, il se remettra à jour avec le fichier donc
-vous ne perdrez rien et la frise marchera sans problèmes ! \n\n
+base de données.  \n\n
 
             III) Bluetooth\n\n
             
      Le créateur d edt permet l envoi d emplois du temps par Bluetooth à la frise. Cela permet d utiliser le créateur
-depuis son Smatphone ou sa tablete sans utiliser celle des enfants. Il faut pour cela que le Bluetooth soit activé
-sur la tablette des enfants, est que cette dernière soit appariée ave votre appareil personnel (voir prédéfénces).
-Le créateur vous propose lui même d activer ou non le bluetooth sur votre appareil. On n a vu avec le paragraphe du haut
-que la créateur et la frise étaient toujours synchronisés sur la tablette de l enfant. Avec le bLuetooth, le créateur sur
-votre appareil sera aussi synchronisé avec la frise. Donc tous les edt nouveaux sur la tablette de l enfant seront aussi
-sur votre appareil au démarrage et vice versa : ce que vous faites d un côté, vous n avez pas à le refaire de l autre.
-Une personne peut donc travailler sur la tablette et une aure sur son appareil personnel sans perte de données et avec
-la totale liberté de remodifier ce que l autre a fait,... On peut aussi envoyer en live des modifications sur la tablette
-pendant que l enfant l utilise sans devoir lui reprendre. La liaison Bluetooth ne marche qu entre la tablette de l enfant
-et un appareil a la fois qui lui est apparié (même si on peut en apparier plusieurs), donc travail à deux max.
-Cependant, le bluetooth n est absolument pas nécessaire pour utiliser le créateur, plusieurs personnes peuvent travailler
-sur leur propres Smartphone/tablette, et se connecter chacun leur tour à la tablette de l enfant.\n\n
+depuis son Smartphone ou sa tablette sans utiliser celle des enfants. Il faut pour cela que le Bluetooth soit activé
+sur la tablette des enfants, est que cette dernière soit appariée avec votre appareil personnel (voir préférences).
+On n a vu avec le paragraphe du haut que la créateur et la frise étaient toujours synchronisés sur la tablette de 
+l enfant. Sur votre appareil personnel, quand vous envoyez vos emplois du temps à la tablette par Bluetooth, ces derniers
+s ajoutent dans la frise et vous recevez également tous les emplois de la frise que vous n aviez pas: ce que vous faites
+sur la tablette des enfants, vous n avez pas à le refaire sur votre propre appareil et vice versa.
+Si jamais le Bluetooth ne marche plus trop bien, desactivez le sur les deux appareils, fermzr complètement les applis 
+puis remettez le Bluetooth et rouvrez tout, l ordre n a pas d importance\n\n
 
 			IV)	Création d EDT vides\n\n
 
@@ -69,8 +63,8 @@ que les heures marquées (heures qui apparaissent sur la frise, comme des repèr
 petit cadre avec son nom, ses horaires, sa description. La cadre est de la couleur de l activité, mais on n a aucune
 info sur l image, désolé… La croix à droite permet de supprimer une activité. Comme pour la fenêtre précédente, le
 bouton « ajouter » est double, si vous remplissez une heure à marquer dans le champ du bas, il ajoute cette heure à la
-liste (liste déroulante en bas), sinon, il vous permet d ajouter une activité à l EDT (voir partie IV). Enfin, un clic
-sur une activité vous permet de la modifier (partie IV). \n\n
+liste (liste déroulante en bas), sinon, il vous permet d ajouter une activité à l EDT (voir partie VI). Enfin, un clic
+sur une activité vous permet de la modifier (partie VI). \n\n
 
 			VI)	Ajouter/modifier une activité\n\n
 
@@ -78,14 +72,16 @@ sur une activité vous permet de la modifier (partie IV). \n\n
 cliquez sur « ajouter » et dans le second sur une activité. Vous pouvez donc remplir à votre guise les champs qui
 vous sont proposés, choisir une image et une couleur, puis valider. Si des champs sont vides ou incorrects (format
 des heures : « 13h30 ») on vous le dira, vous ne perdrez rien, rassurez-vous ! Pour les images, c est plus compliqué,
-soit vous prenez celles qui apparaissent dans la liste déroulante (facile) soit vous pouvez chercher dans votre
+soit vous prenez celles qui apparaissent dans la liste déroulante ,soit vous pouvez chercher dans votre
 appareil des images ou des photos en cliquant sur le dernier item « … ». Là encore, aucun danger ne vous guette,
 mais sachez que si vous prenez une trop belle image, elle ralentira la frise. Votre image ne s affichera pas
-forcément à l écran parce qu elle est trop grande mais ce n est pas grave. Autre chose très importante, on envoi que
-des choses simples par Bluetooth, comme le nom de l image (et pas l image elle-même), donc si cette image ne se
-trouve pas sur la frise, inutile de compter la voir s afficher ^^.\n\n
+forcément à l écran parce qu elle est trop grande mais ce n est pas grave. Autre chose très importante, on envoit que
+des choses simples par Bluetooth, comme le chemin de l image (et pas l image elle-même), donc si cette image ne se
+trouve pas sur la tablette de l enfant, inutile de compter la voir s afficher sur la frise. A la place, 
+il y aura une étoile ^^.\n\n
 	
-	Un dernier mot, si vos emplois du temps sont vides ou incohérents (activités qui se chevauchent), ils seront stockés mais pas envoyés à la frise, vous pourrez donc les modifier. \n\n
+	Un dernier mot, si vos emplois du temps sont vides ou incohérents (activités qui se chevauchent), ils seront stockés
+mais pas envoyés à la frise, vous pourrez donc les modifier. \n\n
 Que la force de création soit avec vous …
 </string>
     <string name="title_activity_emplois">EmploisActivity</string>

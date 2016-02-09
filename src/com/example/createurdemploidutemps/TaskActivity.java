@@ -72,7 +72,6 @@ public class TaskActivity extends Activity {
 
 	private boolean isNewTask;
 
-	
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_task);
@@ -105,7 +104,6 @@ public class TaskActivity extends Activity {
 		// listener sur le choix des couleurs
 		couleur_bouton.setOnClickListener(new View.OnClickListener() {
 
-			
 			public void onClick(final View v) {
 
 				openPickColor();
@@ -117,11 +115,10 @@ public class TaskActivity extends Activity {
 		// si la task est deja remplie, on la supprime apres validation pour la
 		// remplacer par celle
 		// modifiee
-		isNewTask = (task.getHeureDebut()==-1);
+		isNewTask = (task.getHeureFin() == -1);
 		// listener sur la valisation/verification
 		valider.setOnClickListener(new OnClickListener() {
 
-			
 			public void onClick(final View v) {
 
 				if (isTaskCorrect()) {
@@ -150,9 +147,15 @@ public class TaskActivity extends Activity {
 	 * rempli prealablement les champs avec les donnees de la Task recue en
 	 * intent si la task est vide, les champs restent vides.
 	 */
-	
+
 	public void onStart() {
 		super.onStart();
+		
+		// hdebut recoit l'heure de fin de l'activite precedente par commodite.
+		if (task.getHeureDebut() != -1) {
+			hDebut.setText(HeuresMarquees.toString(task.getHeureDebut()));
+		}
+
 		// charge une task deja remplie pour la modifier
 		if (!isNewTask) {
 			nom.setText(task.getNom());
@@ -176,8 +179,8 @@ public class TaskActivity extends Activity {
 			} else {
 				final int imageId = getResources().getIdentifier(nomImage,
 						"drawable", getPackageName());
-				img_choisie.setBackgroundDrawable(getResources()
-						.getDrawable(imageId));
+				img_choisie.setBackgroundDrawable(getResources().getDrawable(
+						imageId));
 			}
 		}
 	}
@@ -186,7 +189,7 @@ public class TaskActivity extends Activity {
 	 * Une photo de la galerie a ete choisie pour image de l'activite, on
 	 * recupere l'image que l'on donne en parametre de l'attribut de img_choisie
 	 */
-	
+
 	protected void onActivityResult(final int requestCode,
 			final int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -201,7 +204,8 @@ public class TaskActivity extends Activity {
 			final String picturePath = cursor.getString(columnIndex);
 			cursor.close();
 
-			final Bitmap bm = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(picturePath),120, 120, true);
+			final Bitmap bm = Bitmap.createScaledBitmap(
+					BitmapFactory.decodeFile(picturePath), 120, 120, true);
 			final Drawable d = new BitmapDrawable(getResources(), bm);
 
 			img_choisie.setBackgroundDrawable(d);
@@ -209,6 +213,7 @@ public class TaskActivity extends Activity {
 			// on rajoute un caractere pour differencier cette image qui vient
 			// de la galerie et non des ressources
 			nomImage = "@" + picturePath;
+			task.setImage(nomImage);
 			Log.d("chemin", nomImage);
 		}
 	}
@@ -221,11 +226,10 @@ public class TaskActivity extends Activity {
 		// Images preexistantes
 
 		final LinearLayout images = (LinearLayout) findViewById(R.id.images);
-		for(int i = 0;i<images.getChildCount();i++){
+		for (int i = 0; i < images.getChildCount(); i++) {
 			View v = images.getChildAt(i);
 			v.setOnClickListener(new View.OnClickListener() {
 
-				
 				public void onClick(final View v) {
 					nomImage = (String) v.getTag();
 					Log.d("chemin", nomImage);
@@ -240,7 +244,6 @@ public class TaskActivity extends Activity {
 		// on prend des photos de la galerie de la tablette
 		autre.setOnClickListener(new OnClickListener() {
 
-			
 			public void onClick(final View v) {
 				// on accede a la galerie
 				final Intent i = new Intent(
@@ -278,7 +281,6 @@ public class TaskActivity extends Activity {
 		// listener de fermeture de la palette validation de la couleur
 		color_valider.setOnClickListener(new View.OnClickListener() {
 
-			
 			public void onClick(final View v) {
 				pick_color.dismiss();
 				couleur_bouton.setText("Couleur choisie");
@@ -308,7 +310,6 @@ public class TaskActivity extends Activity {
 			couleur_palette.setTag(i);
 			couleur_palette.setOnClickListener(new View.OnClickListener() {
 
-				
 				public void onClick(final View v) {
 					final int tag = (Integer) v.getTag();
 					color_valider.setBackgroundColor(getApplicationContext()
@@ -360,15 +361,16 @@ public class TaskActivity extends Activity {
 
 		task.setNom(nom.getText().toString());
 
-		if (desc.getText().toString().equals("")) {
-			Toast.makeText(getApplicationContext(),
-					getResources().getString(R.string.desc_vide),
-					Toast.LENGTH_SHORT).show();
-			return false;
-		}
+		/*
+		 * if (desc.getText().toString().equals("")) {
+		 * Toast.makeText(getApplicationContext(),
+		 * getResources().getString(R.string.desc_vide),
+		 * Toast.LENGTH_SHORT).show(); return false; }
+		 */
 
 		task.setDescription(desc.getText().toString());
 
+		// validite de l'heure de debut
 		if (hDebut.getText().toString().equals("")) {
 			Toast.makeText(getApplicationContext(),
 					getResources().getString(R.string.debut_vide),
@@ -383,6 +385,7 @@ public class TaskActivity extends Activity {
 			return false;
 		}
 
+		// validite de l'heure de debut
 		if (hFin.getText().toString().equals("")) {
 			Toast.makeText(getApplicationContext(),
 					getResources().getString(R.string.fin_vide),
@@ -407,7 +410,7 @@ public class TaskActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 			return false;
 		}
-		task.setDuree(heureFin - heureDebut);
+		task.setHeureFin(heureFin);
 		task.setHeureDebut(heureDebut);
 
 		if (couleur_picked == -1) {

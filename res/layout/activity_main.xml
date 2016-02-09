@@ -64,7 +64,7 @@
                 style="@style/wrapped"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/yellow3" />
+                android:textColor="@color/indigo7" />
         </LinearLayout>
         
         <Button 

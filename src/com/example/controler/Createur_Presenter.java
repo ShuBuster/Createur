@@ -72,8 +72,8 @@ public class Createur_Presenter {
 		_blueAdapter = BluetoothAdapter.getDefaultAdapter();
 		// If the adapter is null, then Bluetooth is not supported
 		if (_blueAdapter == null) {
-			Toast.makeText(_context, "Le Bluetooth n'est pas supporte",
-					Toast.LENGTH_SHORT).show();
+			//Toast.makeText(_context, "Le Bluetooth n'est pas supporte",
+				//	Toast.LENGTH_SHORT).show();
 		}
 		_service = null;
 		emploidao = new EmploiDAO(_context);
@@ -92,7 +92,7 @@ public class Createur_Presenter {
 		if (_service != null) {
 			_service.stop();
 		}
-		// sauvegardeFichier(emplois);
+		//sauvegardeFichier(emplois);
 
 	}
 
@@ -163,15 +163,17 @@ public class Createur_Presenter {
 	}
 
 	/**
-	 * Recupere tous les emplois du temps envoyes par Bluetooth et remet a jour
-	 * la base de donnee.
+	 * /** Recupere tous les emplois du temps envoyes par Bluetooth et remet a
+	 * jour la base de donnee.
 	 * 
 	 * @param obj
 	 * @return la liste des emplois charges (vide au pire)
 	 */
 	public ArrayList<EmploiDuTemps> getEdtBluetooth(Object obj) {
 		final byte[] bytes = (byte[]) (obj);
+
 		final ArrayList<EmploiDuTemps> edt = EmploiDuTemps.deserialize(bytes);
+
 		if (!edt.isEmpty()) {
 			Toast.makeText(_context,
 					_context.getResources().getString(R.string.emplois_recus),
@@ -179,10 +181,17 @@ public class Createur_Presenter {
 
 			// remise a jour de la base de donnees
 			updateDataBase(edt);
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+
 		return emploidao.getEmplois(taskdao, heuredao);
 
 	}
+
 
 	/**
 	 * met a jour la base de donnees
@@ -191,31 +200,18 @@ public class Createur_Presenter {
 	 *            Les emplois du temps a inserer/ modifier dans la base
 	 */
 	private void updateDataBase(ArrayList<EmploiDuTemps> emplois) {
+		emploidao.supprimerTous();
 
-		ArrayList<EmploiDuTemps> edtDB = emploidao
-				.getEmplois(taskdao, heuredao);
+		// ajoute tous les edt dans la bd
 		for (EmploiDuTemps emploi : emplois) {
-			// checks if this edt already exists in the dataBase (i<size)
-			int i = 0;
-			while (i < edtDB.size()
-					&& !edtDB.get(i).getNomEnfant()
-							.equals(emploi.getNomEnfant())) {
-				i++;
-			}
-
-			if (i < edtDB.size()) {
-				emploidao.modifier(emploi.getNomEnfant(), emploi);
-				for (Task t : emploi.getEmploi()) {
-					taskdao.modifier(t);
-				}
-				for (HeuresMarquees h : emploi.getMarqueTemps()) {
-					heuredao.modifier(h);
-				}
-			} else {
-				emploidao.ajouter(emploi);
+			emploidao.ajouter(emploi);
+			if (emploi.getEmploi() != null) {
 				for (Task t : emploi.getEmploi()) {
 					taskdao.ajouter(t);
 				}
+			}
+			if (emploi.getMarqueTemps() != null) {
+
 				for (HeuresMarquees h : emploi.getMarqueTemps()) {
 					heuredao.ajouter(h);
 				}
@@ -233,27 +229,34 @@ public class Createur_Presenter {
 	public ArrayList<EmploiDuTemps> chargeEmplois() {
 
 		// lecture depuis la base de donnees
-		ArrayList<EmploiDuTemps> emplois = new ArrayList<EmploiDuTemps>();
-		emplois = emploidao.getEmplois(taskdao, heuredao);
-		/*
-		 * if (emplois.isEmpty()) {
-		 * 
-		 * // lecture depuis le fichier si la base de donnees est vide
-		 * 
-		 * emplois = EmploiDuTemps.deserialize(null); Toast.makeText( _context,
-		 * _context.getResources().getString( R.string.charge_emplois_fichier),
-		 * Toast.LENGTH_SHORT).show();
-		 * 
-		 * // remise a jour de la base de donnees for (final EmploiDuTemps edt :
-		 * emplois) { if (edt != null) { emploidao.ajouter(edt); for (Task t :
-		 * edt.getEmploi()) { taskdao.ajouter(t); } for (HeuresMarquees h :
-		 * edt.getMarqueTemps()) { heuredao.ajouter(h); } } }
-		 * 
-		 * }
-		 * 
-		 * // synchronize les bases de la tablette et du Smartphone.
-		 * syncBluetooth(emplois);
-		 */
+		ArrayList<EmploiDuTemps> emplois = emploidao.getEmplois(taskdao,
+				heuredao);
+
+		/*if (emplois.isEmpty()) {
+
+			// lecture depuis le fichier si la base de donnees est vide
+
+			emplois = EmploiDuTemps.deserialize(null);
+			Toast.makeText(
+					_context,
+					_context.getResources().getString(
+							R.string.charge_emplois_fichier),
+					Toast.LENGTH_SHORT).show();
+
+			// remise a jour de la base de donnees
+			for (final EmploiDuTemps edt : emplois) {
+				if (edt != null) {
+					emploidao.ajouter(edt);
+					for (Task t : edt.getEmploi()) {
+						taskdao.ajouter(t);
+					}
+					for (HeuresMarquees h : edt.getMarqueTemps()) {
+						heuredao.ajouter(h);
+					}
+				}
+			}
+
+		}*/
 
 		return emplois;
 	}
@@ -279,12 +282,9 @@ public class Createur_Presenter {
 
 		}
 
-		// Check that there's actually something to send
-		if (!emplois.isEmpty()) {
-			// Get the message bytes and tell the BluetoothService to write
-			final byte[] send = EmploiDuTemps.serialize(emplois);
-			_service.write(send);
-		}
+		// Get the message bytes and tell the BluetoothService to write
+		final byte[] send = EmploiDuTemps.serialize(emplois);
+		_service.write(send);
 
 	}
 
